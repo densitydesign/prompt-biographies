@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Make It More — Prompt Biographies</title>
 <meta name="description" content="Biografia del prompt / trend 'Make It More': come un esperimento nato su X è diventato un fenomeno collettivo su X, Reddit e YouTube.">
+<link rel="icon" type="image/png" href="assets/images/site/favicon.png">
+<link rel="apple-touch-icon" href="assets/images/site/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -12,15 +14,36 @@
 <link rel="stylesheet" href="https://use.typekit.net/pht7ogj.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="page-biography">
 
-  <!-- HEADER: per questa pubblicazione la homepage non è ancora pronta,
-       quindi "Prompt biographies" NON è un link (testo semplice) e il
-       pulsante "about" è nascosto. Quando homepage e pagina "chi siamo"
-       saranno pronte, rimetti qui i due <a> come in index.html. -->
+  <!-- NAVBAR (uguale in tutte le pagine): fissa, con testo a contrasto (vedi
+       style.css). "prompts" apre il menù a tutto schermo qui sotto. -->
   <header class="site-header">
-    <span>Prompt biographies</span>
+    <a href="index.html">Prompt biographies</a>
+    <nav class="site-nav" aria-label="Main">
+      <button type="button" class="site-nav__button" data-menu-open aria-haspopup="dialog" aria-controls="menu">prompts</button>
+      <a href="about.html">about</a>
+    </nav>
   </header>
+
+  <!-- MENÙ A TUTTO SCHERMO (si apre da "prompts" nella navbar; si chiude con la
+       "x" o con il tasto Esc). Uguale in tutte le pagine. Quando aggiungi una
+       nuova biografia, trasforma il <span> del suo titolo in un <a href="...">. -->
+  <div class="menu-overlay" id="menu" role="dialog" aria-modal="true" aria-label="Prompts" aria-hidden="true">
+    <div class="menu-overlay__bar">
+      <button type="button" class="menu-overlay__close" data-menu-close aria-label="Close menu">x</button>
+    </div>
+    <nav class="menu-overlay__list">
+      <a href="make-it-more.html">Make it more</a>
+      <span>In the style of Greg Rutkowski</span>
+      <span>Emblematic prompt #3</span>
+      <span>Emblematic prompt #4</span>
+      <span>Emblematic prompt #5</span>
+      <span>Emblematic prompt #6</span>
+      <span>Emblematic prompt #7</span>
+      <span>Emblematic prompt #8</span>
+    </nav>
+  </div>
 
   <!-- Il titolo ha 120px di margine verso il primo paragrafo (regola
        speciale); tutti gli altri blocchi qui sotto sono separati da 80px,
@@ -33,13 +56,19 @@
     </div>
   </div>
 
-  <!-- year / platform: allineato alla stessa colonna del testo (colonna 4) -->
+  <!-- year / platform / type: il blocco parte dalla stessa colonna del testo
+       (colonna 4); "type" è allineato al lato sinistro della colonna 7. -->
   <div class="block">
     <div class="grid">
-      <dl class="meta-row col-start-4 col-span-6">
-        <div><dt>Year</dt><dd>2023</dd></div>
-        <div><dt>Platform</dt><dd>x, reddit, youtube</dd></div>
-      </dl>
+      <div class="meta-row col-start-4 col-span-6">
+        <dl class="meta-row__group">
+          <div><dt>Year</dt><dd>2023</dd></div>
+          <div><dt>Platform</dt><dd>x, reddit, youtube</dd></div>
+        </dl>
+        <dl class="meta-row__type">
+          <div><dt>Type</dt><dd>online life</dd></div>
+        </dl>
+      </div>
     </div>
   </div>
 
@@ -328,37 +357,13 @@
   </div>
 
   <footer class="site-footer">
-    A project by DensityDesign Lab, Department of Design, Politecnico di Milano
+    <p>A project by DensityDesign Lab,<br>Department of Design, Politecnico di Milano</p>
+    <div class="site-footer__logos">
+      <img src="assets/images/site/logo-polimi-dipartimento.png" alt="Politecnico di Milano 1863, Dipartimento di Design">
+      <img src="assets/images/site/logo-densitydesign.png" alt="DensityDesign Lab">
+    </div>
   </footer>
 
-  <!-- Navbar che si nasconde/mostra in base alla direzione dello scroll
-       (vedi commento su .site-header in style.css): scendendo si nasconde,
-       risalendo ricompare. Resta sempre visibile finché si è vicini alla
-       cima della pagina (SHOW_NEAR_TOP), per evitare che sparisca subito
-       al primo, minimo scroll. -->
-  <script>
-    (function () {
-      var header = document.querySelector('.site-header');
-      if (!header) return;
-
-      var SHOW_NEAR_TOP = 80; // px: entro questa distanza dalla cima, resta sempre visibile
-      var lastY = window.scrollY;
-
-      function onScroll() {
-        var y = window.scrollY;
-        if (y <= SHOW_NEAR_TOP) {
-          header.classList.remove('site-header--hidden');
-        } else if (y > lastY) {
-          header.classList.add('site-header--hidden'); // scende: nasconde
-        } else if (y < lastY) {
-          header.classList.remove('site-header--hidden'); // risale: mostra
-        }
-        lastY = y;
-      }
-
-      window.addEventListener('scroll', onScroll, { passive: true });
-    })();
-  </script>
 
   <!-- Thumbnail al passaggio del mouse sui link: vedi .link-thumb in
        style.css. Un solo elemento condiviso da tutti i link, riposizionato
@@ -415,6 +420,8 @@
       });
     })();
   </script>
+
+  <script src="js/site.js"></script>
 
 </body>
 </html>

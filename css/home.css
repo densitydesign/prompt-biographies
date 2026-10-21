@@ -1,0 +1,146 @@
+/* ==========================================================================
+   HOMEPAGE — stili specifici di index.html
+   ==========================================================================
+   Questo file si aggiunge a style.css (che resta il foglio di stile
+   principale: griglia, colori, font, navbar, footer, menù). Qui ci sono solo
+   le parti che esistono nella homepage: titolo inclinato e griglia di card.
+   ========================================================================== */
+
+/* --- titolo + sottotitolo inclinati ---------------------------------------
+   Nel design il titolo e la frase sotto sono ruotati di 5° in senso orario.
+   Le dimensioni sono in vw (percentuale della larghezza dello schermo) così
+   tutto si rimpicciolisce in proporzione; da 1512px in su resta alla
+   dimensione del design. L'altezza dell'area (.home-hero) è fissa per fare
+   spazio alle parti ruotate.
+   L'angolo è la variabile --tilt (di base 5°): lo script in fondo a
+   index.html la cambia in base alla vicinanza del mouse, fino a -5°. */
+.home-hero {
+  position: relative;
+  max-width: var(--max-width);
+  /* (il design misura le posizioni dalla cima della pagina: l'header è fisso,
+     quindi non occupa spazio e l'area parte dall'alto) */
+  margin: 0 auto;
+  height: clamp(460px, 45.9vw, 694px);
+  overflow-x: clip;
+}
+.home-hero { cursor: default; } /* sul titolo e sul sottotitolo il cursore resta la freccina */
+.home-title {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--tilt, 5deg));
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-title);
+  font-weight: var(--font-title-weight);
+  font-style: var(--font-title-style);
+  font-size: clamp(40px, 9.92vw, 150px);
+  line-height: 0.8;
+  text-transform: uppercase;
+}
+.home-subtitle {
+  position: absolute;
+  top: 71.2%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--tilt, 5deg));
+  width: min(856px, 88vw);
+  margin: 0;
+  text-align: center;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+/* --- griglia delle card: 3 colonne quadrate -------------------------------
+   Ogni "tile" è un quadrato (largo quanto una colonna) con dentro la card
+   centrata. Stessi margini e gutter della griglia generale. */
+.prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gutter);
+  padding: 0 var(--grid-margin);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.prompt-tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: var(--color-text) center / cover no-repeat;
+  overflow: hidden;
+}
+/* i tile sono link: qui annulliamo lo stile "in negativo" dei link normali */
+a.prompt-tile {
+  color: var(--color-text);
+  padding: 0;
+  text-decoration: none;
+}
+/* la card bianca (320 x 181 nel design): è larga il 70% del tile e tutto
+   quello che ha dentro è espresso in "cqw" (percentuale della sua larghezza),
+   così testi e posizioni scalano insieme alla card. 1cqw = 3,2px nel design. */
+.prompt-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 69.9%;
+  aspect-ratio: 320 / 181;
+  transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  transition: transform 0.35s ease;
+  container-type: inline-size;
+  color: var(--color-text);
+}
+/* in hover la card si ingrandisce al 110% e ruota di 5° (in senso orario,
+   lo stesso verso dell'inclinazione del titolo) */
+@media (hover: hover) {
+  .prompt-tile:hover .prompt-card {
+    transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+  }
+}
+.prompt-card > * { position: absolute; margin: 0; }
+.prompt-card__bg { inset: 0; width: 100%; height: 100%; }
+.prompt-card__title {
+  top: 4.06cqw;
+  left: 53.125%;
+  width: 81.25%;
+  transform: translateX(-50%);
+  text-align: center;
+  text-transform: uppercase;
+  font-family: var(--font-title);
+  font-weight: var(--font-title-weight);
+  font-style: var(--font-title-style);
+  font-size: 8.125cqw;
+  line-height: 8.75cqw;
+}
+.prompt-card__lines {
+  top: 26.56cqw;
+  left: 12.5%;
+  width: 81.25%;
+  height: auto;
+}
+.prompt-card__label,
+.prompt-card__value {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 2.8125cqw;
+  line-height: 3.125cqw;
+  white-space: nowrap;
+}
+.prompt-card__label { text-transform: uppercase; }
+.prompt-card__platform { left: 13.75%; }
+.prompt-card__year { left: 66.25%; }
+.prompt-card__row-1 { top: 29cqw; }
+.prompt-card__row-2 { top: 33.44cqw; }
+.prompt-card__row-3 { top: 41.56cqw; }
+.prompt-card__row-4 { top: 45.94cqw; }
+
+/* --- responsive ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .prompt-grid { grid-template-columns: repeat(2, 1fr); }
+  .home-subtitle { font-size: 18px; line-height: 22px; }
+}
+@media (max-width: 520px) {
+  .home-hero { height: 540px; }
+  .home-subtitle { top: 76%; }
+  .prompt-grid { grid-template-columns: 1fr; }
+}

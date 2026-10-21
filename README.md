@@ -8,24 +8,38 @@ Sito statico (solo HTML e CSS, nessun programma da installare) per l'archivio
 
 ```
 prompt-biographies/
-├── index.html              → homepage (elenco delle biografie)
+├── index.html              → homepage (titolo inclinato + griglia di card)
+├── about.html              → pagina About
 ├── make-it-more.html       → pagina della biografia "Make it more"
+├── CNAME                   → dominio personalizzato (promptbiographies.densitydesign.org)
 ├── css/
-│   └── style.css           → tutto lo stile del sito (griglia, font, colori)
+│   ├── style.css           → stile condiviso da tutte le pagine (griglia, font, colori,
+│   │                         navbar, footer, menù a tutto schermo, pagina about)
+│   └── home.css            → stile solo della homepage
+├── js/
+│   └── site.js             → apertura/chiusura del menù "prompts" (tutte le pagine)
 ├── assets/
 │   └── images/
-│       └── make-it-more/           → immagini usate da questa pagina
-│           └── link-thumbnails/    → miniature che compaiono in hover sui link
+│       ├── site/           → loghi del footer (condivisi)
+│       ├── home/           → immagini della homepage (sfondo card)
+│       └── make-it-more/   → immagini di questa pagina
+│           └── link-thumbnails/  → miniature che compaiono in hover sui link
 └── README.md                → questo file
 ```
+
+**Navbar, menù e footer** sono gli stessi in ogni pagina: il codice HTML è copiato
+in `index.html`, `about.html` e `make-it-more.html` (blocchi `<header>`,
+`<div class="menu-overlay">` e `<footer>`). Se cambi una voce (es. aggiungi un
+prompt al menù), ricordati di modificarla in tutte le pagine.
 
 **Come aggiungere una nuova biografia in futuro:**
 
 1. Duplica `make-it-more.html`, rinominalo (es. `nome-del-prompt.html`) e
    sostituisci testo e immagini.
 2. Crea una cartella `assets/images/nome-del-prompt/` per le sue immagini.
-3. Apri `index.html` e aggiungi una riga nell'elenco `<ul class="biography-list">`
-   con il link alla nuova pagina (c'è un commento nel file che spiega dove).
+3. In `index.html` trasforma una card segnaposto in link (c'è un commento nel file
+   che spiega come) e in ogni pagina trasforma il <span> del suo titolo, nel menù
+   "prompts", in un <a href="...">.
 
 Non serve nessun programma speciale: puoi aprire i file `.html` con un editor
 di testo qualsiasi (es. VS Code, TextEdit) e vederli nel browser trascinandoli

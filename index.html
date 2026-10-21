@@ -1,99 +1,242 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prompt Biographies</title>
-<meta name="description" content="Un archivio di biografie sulla vita dei prompt che circolano online.">
+<meta name="description" content="An archive that documents the public life of emblematic prompts, formulas and templates that have circulated widely enough to be replicated, varied, discussed and reused.">
+<link rel="icon" type="image/png" href="assets/images/site/favicon.png">
+<link rel="apple-touch-icon" href="assets/images/site/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <!-- Clarendon Text Pro (titolo) da Adobe Fonts / Typekit -->
 <link rel="stylesheet" href="https://use.typekit.net/pht7ogj.css">
 <link rel="stylesheet" href="css/style.css">
-<style>
-  /* Stile minimo solo per questa homepage provvisoria.
-     Quando avrai un design dedicato per l'homepage su Figma,
-     puoi sostituire tutto questo file senza toccare le pagine
-     delle singole biografie. */
-  .home-title {
-    font-family: var(--font-title);
-    font-weight: var(--font-title-weight);
-    font-style: var(--font-title-style);
-    text-transform: uppercase;
-    text-align: center;
-    font-size: clamp(40px, 8vw, 96px);
-    line-height: 0.95;
-    margin: 80px auto 16px;
-    padding: 0 var(--grid-margin);
-  }
-  .home-subtitle {
-    text-align: center;
-    max-width: 560px;
-    margin: 0 auto 64px;
-    padding: 0 var(--grid-margin);
-  }
-  .biography-list {
-    max-width: 692px;
-    margin: 0 auto 80px;
-    padding: 0 var(--grid-margin);
-    list-style: none;
-  }
-  .biography-list li {
-    border-top: 1px solid var(--color-text);
-    padding: 20px 0;
-  }
-  .biography-list li:last-child { border-bottom: 1px solid var(--color-text); }
-  .biography-list a {
-    font-family: var(--font-mono);
-    font-size: 20px;
-    text-decoration: none;
-  }
-  .biography-list a:hover { text-decoration: underline; }
-  .biography-list p {
-    margin: 6px 0 0;
-    font-family: var(--font-body);
-    font-size: 15px;
-    opacity: 0.75;
-  }
-  .coming-soon {
-    text-align: center;
-    font-family: var(--font-mono);
-    font-size: 14px;
-    opacity: 0.6;
-    padding: 0 var(--grid-margin) 60px;
-  }
-</style>
+<link rel="stylesheet" href="css/home.css">
 </head>
-<body>
+<body class="page-home">
 
+  <!-- NAVBAR (uguale in tutte le pagine): fissa, con testo a contrasto (vedi
+       style.css). "prompts" apre il menù a tutto schermo qui sotto. -->
   <header class="site-header">
     <a href="index.html">Prompt biographies</a>
-    <a href="#about">about</a>
+    <nav class="site-nav" aria-label="Main">
+      <button type="button" class="site-nav__button" data-menu-open aria-haspopup="dialog" aria-controls="menu">prompts</button>
+      <a href="about.html">about</a>
+    </nav>
   </header>
 
-  <h1 class="home-title">Prompt<br>biographies</h1>
-  <p class="home-subtitle body-text">Un archivio che raccoglie biografie sulla vita dei prompt che circolano online: da dove nascono, come si diffondono, cosa dicono di noi e dei modelli con cui li abbiamo scritti.</p>
+  <!-- MENÙ A TUTTO SCHERMO (si apre da "prompts" nella navbar; si chiude con la
+       "x" o con il tasto Esc). Uguale in tutte le pagine. Quando aggiungi una
+       nuova biografia, trasforma il <span> del suo titolo in un <a href="...">. -->
+  <div class="menu-overlay" id="menu" role="dialog" aria-modal="true" aria-label="Prompts" aria-hidden="true">
+    <div class="menu-overlay__bar">
+      <button type="button" class="menu-overlay__close" data-menu-close aria-label="Close menu">x</button>
+    </div>
+    <nav class="menu-overlay__list">
+      <a href="make-it-more.html">Make it more</a>
+      <span>In the style of Greg Rutkowski</span>
+      <span>Emblematic prompt #3</span>
+      <span>Emblematic prompt #4</span>
+      <span>Emblematic prompt #5</span>
+      <span>Emblematic prompt #6</span>
+      <span>Emblematic prompt #7</span>
+      <span>Emblematic prompt #8</span>
+    </nav>
+  </div>
+
+  <!-- TITOLO + SOTTOTITOLO (inclinati di 5°, vedi home.css) -->
+  <section class="home-hero">
+    <h1 class="home-title">Prompt<br>biographies</h1>
+    <p class="home-subtitle">An archive that documents the public life of emblematic prompts, formulas and templates that have circulated widely enough to be replicated, varied, discussed and reused.</p>
+  </section>
 
   <!--
     COME AGGIUNGERE UNA NUOVA BIOGRAFIA
     ------------------------------------
     1. Crea il nuovo file HTML nella cartella principale (es. nome-prompt.html),
        partendo da make-it-more.html come modello.
-    2. Aggiungi qui sotto un nuovo elemento <li> con il link e una breve descrizione.
+    2. Qui sotto, trasforma una delle card segnaposto in un link: cambia
+       <div class="prompt-tile"> in <a class="prompt-tile" href="nome-prompt.html">
+       (e </div> finale in </a>), poi sostituisci titolo, anno, piattaforma e tipo.
+    3. Per mettere un'immagine come sfondo del tile (come la prima card) aggiungi
+       style="background-image: url('assets/images/home/nome-immagine.png')".
   -->
-  <ul class="biography-list">
-    <li>
-      <a href="make-it-more.html">Make it more &rarr;</a>
-      <p>Come un esperimento su X è diventato un trend collettivo su X, Reddit e YouTube.</p>
-    </li>
-  </ul>
+  <main class="prompt-grid" id="prompts">
 
-  <p class="coming-soon">altre biografie in arrivo</p>
+    <!-- 1. Make it more (con immagine di sfondo) -->
+    <a class="prompt-tile" href="make-it-more.html" style="background-image: url('assets/images/home/card-make-it-more.png');">
+      <div class="prompt-card">
+        <img class="prompt-card__bg" src="assets/images/home/card-bg.svg" alt="">
+        <h2 class="prompt-card__title">Make it<br>more</h2>
+        <img class="prompt-card__lines" src="assets/images/home/card-lines.svg" alt="">
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-1">platform</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-2">x, reddit, youtube</p>
+        <p class="prompt-card__label prompt-card__year prompt-card__row-1">year</p>
+        <p class="prompt-card__value prompt-card__year prompt-card__row-2">2023</p>
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-3">type</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-4">online life</p>
+      </div>
+    </a>
+
+    <!-- 2. segnaposto -->
+    <div class="prompt-tile">
+      <div class="prompt-card">
+        <img class="prompt-card__bg" src="assets/images/home/card-bg.svg" alt="">
+        <h2 class="prompt-card__title">In the style of Greg Rutkowski</h2>
+        <img class="prompt-card__lines" src="assets/images/home/card-lines.svg" alt="">
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-1">platform</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-2">abc</p>
+        <p class="prompt-card__label prompt-card__year prompt-card__row-1">year</p>
+        <p class="prompt-card__value prompt-card__year prompt-card__row-2">xxxx</p>
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-3">type</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-4">abc</p>
+      </div>
+    </div>
+
+    <!-- 3. segnaposto -->
+    <div class="prompt-tile">
+      <div class="prompt-card">
+        <img class="prompt-card__bg" src="assets/images/home/card-bg.svg" alt="">
+        <h2 class="prompt-card__title">Emblematic prompt #3</h2>
+        <img class="prompt-card__lines" src="assets/images/home/card-lines.svg" alt="">
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-1">platform</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-2">abc</p>
+        <p class="prompt-card__label prompt-card__year prompt-card__row-1">year</p>
+        <p class="prompt-card__value prompt-card__year prompt-card__row-2">xxxx</p>
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-3">type</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-4">abc</p>
+      </div>
+    </div>
+
+    <!-- 4. segnaposto -->
+    <div class="prompt-tile">
+      <div class="prompt-card">
+        <img class="prompt-card__bg" src="assets/images/home/card-bg.svg" alt="">
+        <h2 class="prompt-card__title">Emblematic prompt #4</h2>
+        <img class="prompt-card__lines" src="assets/images/home/card-lines.svg" alt="">
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-1">platform</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-2">abc</p>
+        <p class="prompt-card__label prompt-card__year prompt-card__row-1">year</p>
+        <p class="prompt-card__value prompt-card__year prompt-card__row-2">xxxx</p>
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-3">type</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-4">abc</p>
+      </div>
+    </div>
+
+    <!-- 5. segnaposto -->
+    <div class="prompt-tile">
+      <div class="prompt-card">
+        <img class="prompt-card__bg" src="assets/images/home/card-bg.svg" alt="">
+        <h2 class="prompt-card__title">Emblematic prompt #5</h2>
+        <img class="prompt-card__lines" src="assets/images/home/card-lines.svg" alt="">
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-1">platform</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-2">abc</p>
+        <p class="prompt-card__label prompt-card__year prompt-card__row-1">year</p>
+        <p class="prompt-card__value prompt-card__year prompt-card__row-2">xxxx</p>
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-3">type</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-4">abc</p>
+      </div>
+    </div>
+
+    <!-- 6. segnaposto -->
+    <div class="prompt-tile">
+      <div class="prompt-card">
+        <img class="prompt-card__bg" src="assets/images/home/card-bg.svg" alt="">
+        <h2 class="prompt-card__title">Emblematic prompt #6</h2>
+        <img class="prompt-card__lines" src="assets/images/home/card-lines.svg" alt="">
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-1">platform</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-2">abc</p>
+        <p class="prompt-card__label prompt-card__year prompt-card__row-1">year</p>
+        <p class="prompt-card__value prompt-card__year prompt-card__row-2">xxxx</p>
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-3">type</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-4">abc</p>
+      </div>
+    </div>
+
+    <!-- 7. segnaposto -->
+    <div class="prompt-tile">
+      <div class="prompt-card">
+        <img class="prompt-card__bg" src="assets/images/home/card-bg.svg" alt="">
+        <h2 class="prompt-card__title">Emblematic prompt #7</h2>
+        <img class="prompt-card__lines" src="assets/images/home/card-lines.svg" alt="">
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-1">platform</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-2">abc</p>
+        <p class="prompt-card__label prompt-card__year prompt-card__row-1">year</p>
+        <p class="prompt-card__value prompt-card__year prompt-card__row-2">xxxx</p>
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-3">type</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-4">abc</p>
+      </div>
+    </div>
+
+    <!-- 8. segnaposto -->
+    <div class="prompt-tile">
+      <div class="prompt-card">
+        <img class="prompt-card__bg" src="assets/images/home/card-bg.svg" alt="">
+        <h2 class="prompt-card__title">Emblematic prompt #8</h2>
+        <img class="prompt-card__lines" src="assets/images/home/card-lines.svg" alt="">
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-1">platform</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-2">abc</p>
+        <p class="prompt-card__label prompt-card__year prompt-card__row-1">year</p>
+        <p class="prompt-card__value prompt-card__year prompt-card__row-2">xxxx</p>
+        <p class="prompt-card__label prompt-card__platform prompt-card__row-3">type</p>
+        <p class="prompt-card__value prompt-card__platform prompt-card__row-4">abc</p>
+      </div>
+    </div>
+
+  </main>
 
   <footer class="site-footer">
-    A project by DensityDesign Lab, Department of Design, Politecnico di Milano
+    <p>A project by DensityDesign Lab,<br>Department of Design, Politecnico di Milano</p>
+    <div class="site-footer__logos">
+      <img src="assets/images/site/logo-polimi-dipartimento.png" alt="Politecnico di Milano 1863, Dipartimento di Design">
+      <img src="assets/images/site/logo-densitydesign.png" alt="DensityDesign Lab">
+    </div>
   </footer>
+
+  <!-- Titolo e sottotitolo: l'angolo di rotazione dipende dalla distanza del mouse
+       dal centro del blocco. Lontano = 5° (come nel design); più il mouse si
+       avvicina al centro, più ruota, fino a -5°. Il movimento è addolcito (lerp)
+       per non essere a scatti. Sui dispositivi touch (senza mouse) resta a 5°. -->
+  <script>
+    (function () {
+      var hero = document.querySelector('.home-hero');
+      if (!hero) return;
+      if (!window.matchMedia('(hover: hover)').matches) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var REST = 5;      // gradi quando il mouse è lontano
+      var CLOSE = -5;    // gradi quando il mouse è al centro del blocco
+      var current = REST, target = REST, running = false;
+      var mx = -9999, my = -9999;
+
+      function update() {
+        var r = hero.getBoundingClientRect();
+        var cx = r.left + r.width / 2;
+        var cy = r.top + r.height * 0.59; // centro verticale di titolo + sottotitolo
+        var radius = Math.min(window.innerWidth, 1512) * 0.45; // raggio d'influenza
+        var d = Math.hypot(mx - cx, my - cy);
+        var t = Math.max(0, Math.min(1, 1 - d / radius));
+        t = t * t * (3 - 2 * t); // smoothstep: partenza e arrivo più morbidi
+        target = REST + (CLOSE - REST) * t;
+      }
+      function frame() {
+        update();
+        current += (target - current) * 0.12;
+        if (Math.abs(target - current) < 0.01) current = target;
+        hero.style.setProperty('--tilt', current.toFixed(3) + 'deg');
+        if (current !== target) { requestAnimationFrame(frame); } else { running = false; }
+      }
+      function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }
+
+      document.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; kick(); });
+      document.addEventListener('scroll', kick, { passive: true });
+      document.documentElement.addEventListener('mouseleave', function () { mx = my = -9999; kick(); });
+    })();
+  </script>
+
+  <script src="js/site.js"></script>
 
 </body>
 </html>

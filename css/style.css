@@ -181,19 +181,22 @@ a {
 
 /* --- 4. TIPOGRAFIA -------------------------------------------------------- */
 
-.site-header {
-  /* diventerà la navbar vera e propria: resta ferma in cima allo schermo
-     (non scorre via con il resto), senza sfondo — solo i due testi. Quando
-     si scrolla verso il basso scompare scivolando verso l'alto; quando si
-     risale ricompare scendendo. La classe "site-header--hidden" (aggiunta/
-     tolta dallo script in fondo alla pagina in base alla direzione dello
-     scroll) è quella che la sposta su/giù. */
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  transform: translateY(0);
-  transition: transform 0.3s ease;
+/* --- NAVBAR (uguale in tutte le pagine) -----------------------------------
+   La navbar è FISSA: resta sempre in cima allo schermo, non sparisce
+   scrollando. Il testo è bianco con "mix-blend-mode: difference": il browser
+   lo mostra come l'opposto di ciò che ha dietro, quindi è scuro sullo sfondo
+   chiaro e diventa chiaro quando passa sopra immagini o blocchi scuri.
+   In hover il testo si schiarisce (#B0B0B0 sullo sfondo #f7f7f7: il valore
+   scritto qui sotto è #474747 perché la modalità "difference" lo inverte). */
+html { background: var(--color-bg); }
+html.menu-is-open { overflow: hidden; }
 
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -201,22 +204,48 @@ a {
   max-width: var(--max-width);
   margin: 0 auto;
   font-family: var(--font-mono);
+  font-weight: 400; /* Geist Mono Regular */
   font-size: 16px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
+  color: #ffffff;
+  mix-blend-mode: difference;
 }
-.site-header--hidden {
-  transform: translateY(-100%);
-}
-.site-header a {
-  text-decoration: none;
-  /* il link "in negativo" (vedi punto 4 più sotto) non si applica al menu
-     in testa alla pagina: qui il link resta testo semplice. */
+/* link e pulsante "prompts" hanno lo stesso aspetto: testo semplice (il link
+   "in negativo" del punto 4 non si applica alla navbar) */
+.site-header a,
+.site-header button {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
   color: inherit;
   background: none;
+  border: 0;
   padding: 0;
+  margin: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
-.site-header a:hover { text-decoration: underline; }
+.site-header a:hover,
+.site-header button:hover,
+.site-header .is-held {
+  color: #474747;
+  text-decoration: none;
+}
+/* ".is-held": dopo un clic sulla navbar, nella pagina successiva la voce resta
+   "in hover" finché non si muove il mouse (la aggiunge js/site.js). Appare
+   senza transizione, così sembra la continuazione dello stato precedente. */
+.site-header .no-transition { transition: none; }
+.site-nav {
+  display: flex;
+  gap: 60px;
+}
+@media (max-width: 900px) { .site-nav { gap: 32px; } }
+@media (max-width: 520px) { .site-nav { gap: 20px; } }
+
+/* le pagine di biografia (make-it-more) partono sotto la navbar fissa */
+.page-biography { padding-top: 72px; }
 
 .page-title {
   font-family: var(--font-title);
@@ -225,7 +254,7 @@ a {
   text-transform: uppercase;
   text-align: center;
   font-size: clamp(50px, 9.9vw, 135px);
-  line-height: 110px;
+  line-height: 0.815; /* proporzionale al corpo (110px su 135px nel design), si riduce insieme al testo */
   margin: 120px 0 120px;
   padding: 0 var(--grid-margin);
 }
@@ -238,17 +267,33 @@ a {
   margin: 0;
 }
 
+/* riga year / platform / type. Il blocco occupa 6 colonne (4-9): year e
+   platform stanno nelle prime 3 (colonne 4-6), "type" parte dal lato sinistro
+   della colonna 7. Sotto i 1260px le colonne sono troppo strette per tenere
+   i testi allineati, quindi le voci si dispongono in fila (con a capo). */
 .meta-row {
-  display: flex;
-  gap: 60px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
   font-family: var(--font-mono);
   font-size: 16px;
   text-transform: uppercase;
-  flex-wrap: wrap;
   margin: 0;
 }
+.meta-row dl { margin: 0; }
+.meta-row__group {
+  grid-column: 1 / span 3;
+  display: flex;
+  gap: 60px;
+}
+.meta-row__type { grid-column: 4; }
 .meta-row dt { font-weight: 400; opacity: 0.7; }
 .meta-row dd { margin: 0; font-weight: 400; }
+@media (max-width: 1260px) {
+  .meta-row { display: flex; flex-wrap: wrap; gap: 30px 60px; } /* 30px tra le righe, 60px tra le voci */
+  .meta-row__group { display: contents; }
+  .meta-row__type { display: contents; }
+}
 
 /* --- 5. COMPONENTI -------------------------------------------------------- */
 
@@ -394,12 +439,149 @@ a {
   border: 0;
 }
 
+/* --- FOOTER (uguale in tutte le pagine) ----------------------------------
+   Testo a sinistra, due loghi a partire dalla terza colonna della griglia
+   (stessa posizione del design). 240px sopra e 40px sotto. */
 .site-footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 240px var(--grid-margin) 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gutter);
+  align-items: start;
   font-family: var(--font-mono);
   font-size: 14px;
+  line-height: 18px;
   text-transform: uppercase;
+  text-align: left;
+}
+.site-footer p { margin: 0; }
+.site-footer__logos {
+  grid-column: 3;
+  display: flex;
+  align-items: flex-start;
+  gap: 61px;
+}
+.site-footer__logos img:first-child { width: 248px; height: auto; }
+.site-footer__logos img:last-child { width: 47px; height: auto; }
+@media (max-width: 900px) {
+  .site-footer { grid-template-columns: 1fr; row-gap: 40px; padding-top: 120px; }
+  .site-footer__logos { grid-column: 1; }
+}
+@media (max-width: 520px) {
+  .site-footer { font-size: 12px; line-height: 16px; }
+  .site-footer__logos { gap: 29px; }
+  .site-footer__logos img:first-child { width: min(248px, 56vw); }
+  .site-footer__logos img:last-child { width: 40px; }
+}
+
+/* --- MENÙ A TUTTO SCHERMO (si apre da "prompts") ---------------------------
+   Sfondo scuro che copre tutta la pagina, con l'elenco dei prompt al centro
+   (titoli in Clarendon 48px) e una "x" in alto a destra, nella stessa
+   posizione di "about" nella navbar. Aperto/chiuso con la classe "is-open"
+   (la aggiunge js/site.js). */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--color-text);
+  color: var(--color-bg);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+.menu-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0s;
+}
+.menu-overlay__bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 30px var(--grid-margin) 0;
+  display: flex;
+  justify-content: flex-end;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.menu-overlay__close {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.menu-overlay__close:hover { color: #787878; }
+.menu-overlay__list {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 0 var(--grid-margin);
   text-align: center;
-  /* 240px sopra il footer (non 80px come il resto dei blocchi: qui va uno
-     spazio molto maggiore) e 30px sotto, fino alla fine della pagina. */
-  padding: 240px var(--grid-margin) 30px;
+  font-family: var(--font-title);
+  font-weight: var(--font-title-weight);
+  font-style: var(--font-title-style);
+  font-size: clamp(26px, 3.17vw, 48px);
+  line-height: 1.0;
+  text-transform: uppercase;
+}
+/* i link del menù non usano lo stile "in negativo" degli altri link */
+.menu-overlay__list a {
+  color: inherit;
+  background: none;
+  padding: 0;
+  text-decoration: none;
+}
+/* ogni riga (link o segnaposto) in hover diventa grigia (#787878) */
+.menu-overlay__list a,
+.menu-overlay__list span {
+  transition: color 0.2s ease;
+}
+.menu-overlay__list a:hover,
+.menu-overlay__list span:hover {
+  color: #787878;
+}
+
+/* --- PAGINA ABOUT ----------------------------------------------------------
+   Sezioni con titolo (colonne 2-3) e testo (colonne 5-10), come nel design.
+   Il footer resta in fondo alla pagina anche se il contenuto è poco. */
+.page-about {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.page-about .site-footer { margin-top: auto; padding-top: 120px; width: 100%; }
+.about-main { padding-top: 180px; }
+.about-section {
+  margin-bottom: 160px;
+  align-items: start;
+}
+.about-section__title,
+.about-section__text {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+}
+.about-section__title { text-transform: uppercase; }
+/* il testo del corpo è in Geist Medium (i titoli restano in Geist Mono) */
+.about-section__text {
+  font-family: var(--font-body);
+  font-weight: 500;
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Prompt Biographies</title>
+<meta name="description" content="About Prompt Biographies, an archive that documents the public life of emblematic prompts.">
+<link rel="icon" type="image/png" href="assets/images/site/favicon.png">
+<link rel="apple-touch-icon" href="assets/images/site/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Clarendon Text Pro (titolo) da Adobe Fonts / Typekit -->
+<link rel="stylesheet" href="https://use.typekit.net/pht7ogj.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-about">
+
+  <!-- NAVBAR (uguale in tutte le pagine): fissa, con testo a contrasto (vedi
+       style.css). "prompts" apre il menù a tutto schermo qui sotto. -->
+  <header class="site-header">
+    <a href="index.html">Prompt biographies</a>
+    <nav class="site-nav" aria-label="Main">
+      <button type="button" class="site-nav__button" data-menu-open aria-haspopup="dialog" aria-controls="menu">prompts</button>
+      <a href="about.html">about</a>
+    </nav>
+  </header>
+
+  <!-- MENÙ A TUTTO SCHERMO (si apre da "prompts" nella navbar; si chiude con la
+       "x" o con il tasto Esc). Uguale in tutte le pagine. Quando aggiungi una
+       nuova biografia, trasforma il <span> del suo titolo in un <a href="...">. -->
+  <div class="menu-overlay" id="menu" role="dialog" aria-modal="true" aria-label="Prompts" aria-hidden="true">
+    <div class="menu-overlay__bar">
+      <button type="button" class="menu-overlay__close" data-menu-close aria-label="Close menu">x</button>
+    </div>
+    <nav class="menu-overlay__list">
+      <a href="make-it-more.html">Make it more</a>
+      <span>In the style of Greg Rutkowski</span>
+      <span>Emblematic prompt #3</span>
+      <span>Emblematic prompt #4</span>
+      <span>Emblematic prompt #5</span>
+      <span>Emblematic prompt #6</span>
+      <span>Emblematic prompt #7</span>
+      <span>Emblematic prompt #8</span>
+    </nav>
+  </div>
+
+  <!-- CONTENUTO: sezioni con titolo (colonne 2-3) e testo (colonne 5-10).
+       I testi sono ancora segnaposto (lorem ipsum, come nel design): sostituisci
+       titoli e paragrafi. Per aggiungere una sezione copia un blocco
+       <section class="grid about-section">...</section>. -->
+  <main class="about-main">
+    <section class="grid about-section">
+      <h2 class="about-section__title col-start-2 col-span-2">Section title</h2>
+      <p class="about-section__text col-start-5 col-span-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </section>
+
+    <section class="grid about-section">
+      <h2 class="about-section__title col-start-2 col-span-2">Section title</h2>
+      <p class="about-section__text col-start-5 col-span-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>A project by DensityDesign Lab,<br>Department of Design, Politecnico di Milano</p>
+    <div class="site-footer__logos">
+      <img src="assets/images/site/logo-polimi-dipartimento.png" alt="Politecnico di Milano 1863, Dipartimento di Design">
+      <img src="assets/images/site/logo-densitydesign.png" alt="DensityDesign Lab">
+    </div>
+  </footer>
+
+  <script src="js/site.js"></script>
+
+</body>
+</html>
